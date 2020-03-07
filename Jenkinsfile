@@ -11,7 +11,7 @@ podTemplate(label: label, inheritFrom: 'base') {
     }
 
     stage('Login to Dockerhub') {
-      withCredentials([usernamePassword(credentialsId: 'DockerHubAccessYardstick', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+      withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
         container('base') {
           sh "docker login --username ${USER} --password ${PASS}"
         }
@@ -20,9 +20,9 @@ podTemplate(label: label, inheritFrom: 'base') {
 
     stage('Build Docker image') {
       container('base') {
-        sh "docker build -f docker/Dockerfile -t yardstick/restic:${BRANCH_NAME} -t yardstick/restic:latest ."
-        sh "docker push yardstick/restic:${BRANCH_NAME}"
-        sh "docker push yardstick/restic:latest"
+        sh "docker build -f docker/Dockerfile -t weknowtraining/restic:${BRANCH_NAME} -t weknowtraining/restic:latest ."
+        sh "docker push weknowtraining/restic:${BRANCH_NAME}"
+        sh "docker push weknowtraining/restic:latest"
       }
     }
   }
